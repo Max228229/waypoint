@@ -1,0 +1,34 @@
+functionsDirectory = "/opt/build/repo/netlify/functions"
+functionsDirectoryOrigin = "default"
+plugins = []
+headers = []
+
+[build]
+publish = "/opt/build/repo"
+publishOrigin = "default"
+functions = "/opt/build/repo/netlify/functions"
+
+  [build.environment]
+
+  [build.processing]
+
+    [build.processing.css]
+
+    [build.processing.html]
+
+    [build.processing.images]
+
+    [build.processing.js]
+
+  [build.services]
+
+[functions]
+
+  [functions."*"]
+
+# службовий код (бібліотеки, канали) не має бути доступний як статика
+[[redirects]]
+from = "/netlify/*"
+to = "/404"
+status = 404
+force = true
