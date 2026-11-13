@@ -1883,7 +1883,7 @@ function alerts(D){
   st.className='alst'+(on.length?' on':'');
   st.innerHTML=(on.length?'':'<span>Зараз тривог на мапі немає</span>')+'<span class="tm">Оновлено о '+t+'</span>'}
  function pull(){if(document.hidden)return;
-  fetch('/api/alerts',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(paint).catch(function(){st.className='alst';st.innerHTML='<span>Не вдалося отримати дані про тривоги. Повторна спроба за кілька секунд…</span>'})}
+  fetch('/api/alerts').then(function(r){if(!r.ok)throw 0;return r.json()}).then(paint).catch(function(){st.className='alst';st.innerHTML='<span>Не вдалося отримати дані про тривоги. Повторна спроба за кілька секунд…</span>'})}
  pull();setInterval(pull,20000);document.addEventListener('visibilitychange',function(){if(!document.hidden)pull()})}
 /* ---------- цілі ---------- */
 var TG=[],TL=null,RM=[];
@@ -1986,7 +1986,7 @@ function renderTargets(updated){
  var bal=TG.some(function(x){return x.type==='ballistic'});
  tgStatus((TG.length?'Цілей на мапі: <b>'+TG.length+'</b>':'<span>Активних цілей зараз немає</span>')+(bal?'<b class="balw">УВАГА! БАЛІСТИЧНА АТАКА</b>':'')+'<span class="tm">Оновлено о '+tm+'</span>')}
 function pullTargets(){if(document.hidden||!M)return;
- fetch('/api/targets',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){TG=Array.isArray(j.targets)?j.targets:[];renderTargets(j.updated)}).catch(function(){TG=[];RM=[];if(TL)TL.clearLayers();tgStatus('<span>Дані про цілі тимчасово недоступні. У разі небезпеки прямуйте до укриття.</span>')})}
+ fetch('/api/targets').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){TG=Array.isArray(j.targets)?j.targets:[];renderTargets(j.updated)}).catch(function(){TG=[];RM=[];if(TL)TL.clearLayers();tgStatus('<span>Дані про цілі тимчасово недоступні. У разі небезпеки прямуйте до укриття.</span>')})}
 function startTargets(){pullTargets();setInterval(pullTargets,5000);
  document.addEventListener('visibilitychange',function(){if(!document.hidden)pullTargets()});
  requestAnimationFrame(tgLoop)}
